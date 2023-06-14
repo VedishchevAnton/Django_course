@@ -6,9 +6,6 @@ class Customer(models.Model):
     email = models.EmailField()  # контактный email клиента
     full_name = models.CharField(max_length=100)  # ФИО клиента
     comment = models.TextField()  # комментарий клиента
-    newsletters = models.ManyToManyField('Newsletter',
-                                         related_name='customers')  # связь многие-ко-многим с моделью Рассылка (
-    # модель рассылки еще не определена)
 
 
 class Newsletter(models.Model):
@@ -24,6 +21,8 @@ class Newsletter(models.Model):
                                  choices=SEND_FREQUENCY_CHOICES)  # периодичность рассылки (раз в день, раз в неделю,
     # раз в месяц)
     status = models.CharField(max_length=10)  # статус рассылки (завершена, создана, запущена)
+    customers = models.ManyToManyField('Customer',
+                                       related_name='newsletters')  # связь многие-ко-многим с моделью Клиенты
 
 
 class Message(models.Model):
@@ -41,6 +40,6 @@ class Log(models.Model):
     response = models.TextField()  # ответ почтового сервера, если он был
 
     # Связь моделей:
-    # - Модель Customer связана многие-ко-многим с моделью Newsletter через поле newsletters
+    # - Модель Newsletter связана многие-ко-многим с моделью Customer через поле customers
     # - Модель Newsletter связана один-ко-многим с моделью Message через внешний ключ newsletter
     # - Модель Message связана один-ко-многим с моделью Log через внешний ключ message
