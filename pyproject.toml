@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "django-course"
+version = "0.1.0"
+description = ""
+authors = ["<Anton Vedischev> <<vedishchevanton@gmail.com>>"]
+readme = "README.md"
+packages = [{include = "django_course"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^4.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
