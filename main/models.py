@@ -2,10 +2,18 @@ from django.db import models
 
 
 class Customer(models.Model):
-    """Модель Клиент сервиса"""
     email = models.EmailField()  # контактный email клиента
     full_name = models.CharField(max_length=100)  # ФИО клиента
     comment = models.TextField()  # комментарий клиента
+
+    def __str__(self):
+        """Возвращает строковое представление модели."""
+        return f'{self.full_name} ({self.email}): {self.comment}'
+
+    class Meta:
+        """Метаданные модели."""
+        verbose_name = 'Клиент'
+        verbose_name_plural = 'Клиенты'
 
 
 class Newsletter(models.Model):
@@ -24,12 +32,29 @@ class Newsletter(models.Model):
     customers = models.ManyToManyField('Customer',
                                        related_name='newsletters')  # связь многие-ко-многим с моделью Клиенты
 
+    def __str__(self):
+        """Возвращает строковое представление модели."""
+        return f'{self.frequency} рассылка в {self.send_time}'
+
+    class Meta:
+        """Метаданные модели."""
+        verbose_name = 'Рассылка'
+        verbose_name_plural = 'Рассылки'
+
 
 class Message(models.Model):
     """Модель Сообщение для рассылки"""
     newsletter = models.ForeignKey(Newsletter, on_delete=models.CASCADE)  # внешний ключ на модель Рассылка
     subject = models.CharField(max_length=200)  # тема письма
     body = models.TextField()  # тело письма
+
+    def __str__(self):
+        """Возвращает строковое представление модели."""
+        return self.subject  # возвращает тему сообщения
+
+    class Meta:
+        """Метаданные модели."""
+        ordering = ['-id']  # сортировка записей в базе данных по убыванию id
 
 
 class Log(models.Model):
@@ -38,6 +63,14 @@ class Log(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)  # дата и время последней попытки
     status = models.CharField(max_length=20)  # статус попытки
     response = models.TextField()  # ответ почтового сервера, если он был
+
+    def __str__(self):
+        return f"{self.message} - {self.timestamp} - {self.status}"
+
+    class Meta:
+        verbose_name = "Лог"
+        verbose_name_plural = "Логи"
+        ordering = ["-timestamp"]
 
     # Связь моделей:
     # - Модель Newsletter связана многие-ко-многим с моделью Customer через поле customers
