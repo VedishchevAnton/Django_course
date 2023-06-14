@@ -6,6 +6,9 @@ class Customer(models.Model):
     email = models.EmailField()  # контактный email клиента
     full_name = models.CharField(max_length=100)  # ФИО клиента
     comment = models.TextField()  # комментарий клиента
+    newsletters = models.ManyToManyField('Newsletter',
+                                         related_name='customers')  # связь многие-ко-многим с моделью Рассылка (
+    # модель рассылки еще не определена)
 
 
 class Newsletter(models.Model):
@@ -36,3 +39,8 @@ class Log(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)  # дата и время последней попытки
     status = models.CharField(max_length=20)  # статус попытки
     response = models.TextField()  # ответ почтового сервера, если он был
+
+    # Связь моделей:
+    # - Модель Customer связана многие-ко-многим с моделью Newsletter через поле newsletters
+    # - Модель Newsletter связана один-ко-многим с моделью Message через внешний ключ newsletter
+    # - Модель Message связана один-ко-многим с моделью Log через внешний ключ message
