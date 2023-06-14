@@ -65,9 +65,11 @@ class Log(models.Model):
     response = models.TextField()  # ответ почтового сервера, если он был
 
     def __str__(self):
+        """Возвращает строковое представление модели."""
         return f"{self.message} - {self.timestamp} - {self.status}"
 
     class Meta:
+        """Метаданные модели."""
         verbose_name = "Лог"
         verbose_name_plural = "Логи"
         ordering = ["-timestamp"]
