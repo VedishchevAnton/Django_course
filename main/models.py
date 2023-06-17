@@ -8,7 +8,7 @@ class Customer(models.Model):
 
     def __str__(self):
         """Возвращает строковое представление модели."""
-        return f'{self.full_name} ({self.email}): {self.comment}'
+        return f'{self.full_name} {self.email}'
 
     class Meta:
         """Метаданные модели."""
