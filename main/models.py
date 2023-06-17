@@ -35,7 +35,7 @@ class Newsletter(models.Model):
 
     def __str__(self):
         """Возвращает строковое представление модели."""
-        return f'{self.frequency} рассылка в {self.send_time}'
+        return f'{self.get_frequency_display()} рассылка в {self.send_time}'
 
     class Meta:
         """Метаданные модели."""
@@ -52,7 +52,7 @@ class Message(models.Model):
 
     def __str__(self):
         """Возвращает строковое представление модели."""
-        return self.subject  # возвращает тему сообщения
+        return f'{self.subject}:\n{self.body}'
 
     class Meta:
         """Метаданные модели."""

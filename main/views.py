@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from main.models import Customer
+from main.models import Customer, Newsletter, Message, Log
 
 
 def index(request):
@@ -33,3 +33,33 @@ def customers(request):
     }
 
     return render(request, 'main/customers/customers_list.html', context)
+
+
+def newsletters(request):
+    newsletters_list = Newsletter.objects.all()
+    context = {
+        'object_list': newsletters_list,
+        'title': 'Рассылки'
+    }
+
+    return render(request, 'main/newsletters/newsletters_list.html', context)
+
+
+def messages(request):
+    messages_list = Message.objects.all()
+    context = {
+        'object_list': messages_list,
+        'title': 'Сообщения'
+    }
+
+    return render(request, 'main/messages/messages_list.html', context)
+
+
+def logs(request):
+    logs_list = Log.objects.all()
+    context = {
+        'object_list': logs_list,
+        'title': 'Логи'
+    }
+
+    return render(request, 'main/logs/logs_list.html', context)
