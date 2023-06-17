@@ -10,6 +10,7 @@ packages = [{include = "django_course"}]
 python = "^3.10"
 django = "^4.2.2"
 psycopg2-binary = "^2.9.6"
+ipython = "^8.14.0"
 
 
 [build-system]
