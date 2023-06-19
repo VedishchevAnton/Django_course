@@ -39,6 +39,7 @@ STANDARD_APPS = [
 
 USER_APPS = [
     'main',
+    'django_crontab',
 ]
 
 INSTALLED_APPS = STANDARD_APPS + USER_APPS
@@ -58,7 +59,7 @@ ROOT_URLCONF = 'Django_course.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [BASE_DIR / 'main/templates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
