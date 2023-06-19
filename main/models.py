@@ -24,6 +24,7 @@ class Newsletter(models.Model):
         ('weekly', 'Еженедельно'),
         ('monthly', 'Ежемесячно'),
     )
+    subject = models.CharField(max_length=50, verbose_name='Тема рассылки', default='Тема рассылки')  # тема рассылки
     send_time = models.TimeField()  # время рассылки
     frequency = models.CharField(max_length=10, verbose_name='Периодичность рассылки',
                                  choices=SEND_FREQUENCY_CHOICES)  # периодичность рассылки (раз в день, раз в неделю,
@@ -35,7 +36,7 @@ class Newsletter(models.Model):
 
     def __str__(self):
         """Возвращает строковое представление модели."""
-        return f'{self.get_frequency_display()} рассылка в {self.send_time}'
+        return f'{self.subject}'
 
     class Meta:
         """Метаданные модели."""
@@ -47,7 +48,7 @@ class Message(models.Model):
     """Модель Сообщение для рассылки"""
     newsletter = models.ForeignKey(Newsletter, verbose_name='Рассылка',
                                    on_delete=models.CASCADE)  # внешний ключ на модель Рассылка
-    subject = models.CharField(max_length=200, verbose_name='Тема письма')  # тема письма
+    subject = models.CharField(max_length=50, verbose_name='Тема письма')  # тема письма
     body = models.TextField(verbose_name='Содержание письма')  # тело письма
 
     def __str__(self):
