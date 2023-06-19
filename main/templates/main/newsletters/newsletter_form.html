@@ -1,12 +1,12 @@
-{% extends 'main/base.html' %}
+{{% extends 'main/base.html' %}
 
 {% block content %}
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Добавить</button>
+        <div class="d-flex flex-column">
+            <button type="submit" class="mb-2 btn btn-primary form-control">Добавить</button>
+            <a href="{% url 'main:newsletters' %}" class="mb-2 btn btn-primary"><< Назад</a>
+        </div>
     </form>
-    <div class="col-12">
-        <a href="{% url 'main:newsletters' %}" class="btn btn-primary m-2"><< Назад</a>
-    </div>
 {% endblock %}

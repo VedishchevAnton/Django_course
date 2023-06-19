@@ -25,7 +25,7 @@ class Newsletter(models.Model):
         ('monthly', 'Ежемесячно'),
     )
     subject = models.CharField(max_length=50, verbose_name='Тема рассылки', default='Тема рассылки')  # тема рассылки
-    send_time = models.TimeField()  # время рассылки
+    send_time = models.TimeField(erbose_name='Время рассылки')  # время рассылки
     frequency = models.CharField(max_length=10, verbose_name='Периодичность рассылки',
                                  choices=SEND_FREQUENCY_CHOICES)  # периодичность рассылки (раз в день, раз в неделю,
     # раз в месяц)
