@@ -1,6 +1,7 @@
 from django.db import models
 
 
+
 class Customer(models.Model):
     email = models.EmailField(verbose_name='Контактный email')
     full_name = models.CharField(max_length=100, verbose_name='ФИО')
@@ -50,7 +51,6 @@ class Message(models.Model):
                                    on_delete=models.CASCADE)  # внешний ключ на модель Рассылка
     subject = models.CharField(max_length=50, verbose_name='Тема письма')  # тема письма
     body = models.TextField(verbose_name='Содержание письма')  # тело письма
-
 
     def __str__(self):
         """Возвращает строковое представление модели."""
