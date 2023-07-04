@@ -25,16 +25,6 @@ def contact(request):
     return render(request, 'main/contact.html', context)
 
 
-def customers(request):
-    customers_list = Customer.objects.all()
-    context = {
-        'object_list': customers_list,
-        'title': 'Клиенты'
-    }
-
-    return render(request, 'main/customers/customers_list.html', context)
-
-
 def messages(request):
     messages_list = Message.objects.all()
     context = {
