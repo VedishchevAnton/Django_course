@@ -20,3 +20,18 @@ class NewsletterForm(forms.ModelForm):
             for customer in self.customers.all():
                 # Отправить рассылку клиенту
                 pass
+
+        # now = timezone.now().time()
+        # if self.send_time <= now <= self.end_time:
+        #     # Создать сообщение электронной почты
+        #     msg = EmailMessage()
+        #     msg['Subject'] = self.subject
+        #     msg['From'] = 'sender@example.com'
+        #     msg['To'] = [customer.email for customer in self.customers.all()]
+        #     msg.set_content('Текст рассылки')
+        #
+        #     # Отправить сообщение электронной почты
+        #     with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+        #         smtp.starttls()
+        #         smtp.login('sender@example.com', 'password')
+        #         smtp.send_message(msg)
