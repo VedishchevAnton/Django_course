@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from main.models import Customer, Message, Log, Newsletter
+from main.models import Customer, Message, Log
 
 
 def index(request):
@@ -10,7 +10,7 @@ def index(request):
     return render(request, 'main/index.html', context)
 
 
-# Create your views here.
+# Create your views_package here.
 def contact(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -33,16 +33,6 @@ def customers(request):
     }
 
     return render(request, 'main/customers/customers_list.html', context)
-
-
-def newsletters(request):
-    newsletters_list = Newsletter.objects.all()
-    context = {
-        'object_list': newsletters_list,
-        'title': 'Рассылки'
-    }
-
-    return render(request, 'main/newsletters/newsletter_list.html', context)
 
 
 def messages(request):

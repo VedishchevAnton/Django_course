@@ -1,7 +1,6 @@
 from django.db import models
 
 
-
 class Customer(models.Model):
     email = models.EmailField(verbose_name='Контактный email')
     full_name = models.CharField(max_length=100, verbose_name='ФИО')
@@ -26,7 +25,7 @@ class Newsletter(models.Model):
         ('monthly', 'Ежемесячно'),
     )
     subject = models.CharField(max_length=50, verbose_name='Тема рассылки', default='Тема рассылки')  # тема рассылки
-    send_time = models.DateTimeField(verbose_name='Время рассылки')  # время рассылки
+    send_time = models.TimeField(verbose_name='Время рассылки')  # время рассылки
     frequency = models.CharField(max_length=10, verbose_name='Периодичность рассылки',
                                  choices=SEND_FREQUENCY_CHOICES)  # периодичность рассылки (раз в день, раз в неделю,
     # раз в месяц)
@@ -87,5 +86,3 @@ class Log(models.Model):
     # - Модель Newsletter связана многие-ко-многим с моделью Customer через поле customers
     # - Модель Newsletter связана один-ко-многим с моделью Message через внешний ключ newsletter
     # - Модель Message связана один-ко-многим с моделью Log через внешний ключ message
-
-    # djangobeheaver
