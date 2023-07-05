@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.functions import datetime
+from django.utils import timezone
 
 NULLABLE = {'blank': True, 'null': True}
 
@@ -26,13 +28,21 @@ class Newsletter(models.Model):
         ('weekly', 'Еженедельно'),
         ('monthly', 'Ежемесячно'),
     )
+
+    # статус рассылки
+    STATUS_CHOICES = (
+        ('created', 'Создана'),
+        ('running', 'Запущена'),
+        ('completed', 'Завершена'),
+    )
+
     subject = models.CharField(max_length=50, verbose_name='Тема рассылки', default='Тема рассылки')  # тема рассылки
-    send_time = models.TimeField(verbose_name='Время рассылки')  # время рассылки
+    send_time = models.DateTimeField(verbose_name='Время рассылки', default=datetime.datetime.now)
     # end_time = models.TimeField(verbose_name='Время окончания рассылки')
-    frequency = models.CharField(max_length=10, verbose_name='Периодичность рассылки',
-                                 choices=SEND_FREQUENCY_CHOICES)  # периодичность рассылки (раз в день, раз в неделю,
-    # раз в месяц)
-    status = models.CharField(max_length=10,
+    frequency = models.CharField(max_length=10, choices=SEND_FREQUENCY_CHOICES,
+                                 verbose_name='Периодичность рассылки')  # периодичность рассылки (раз в день, раз в
+    # неделю, раз в месяц)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='created',
                               verbose_name='Статус рассылки')  # статус рассылки (завершена, создана, запущена)
     customers = models.ManyToManyField('Customer', verbose_name='Клиенты',
                                        related_name='newsletters')  # связь многие-ко-многим с моделью Клиенты

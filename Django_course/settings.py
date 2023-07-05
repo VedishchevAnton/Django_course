@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'Django_course.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_course_db',  # Название БД
+        'NAME': 'Skychimp_db',  # Название БД
         'USER': 'postgres',  # Пользователь для подключения
         'PASSWORD': 231287,  # Пароль для этого пользователя
         'HOST': '127.0.0.1',  # Адрес, на котором развернут сервер БД

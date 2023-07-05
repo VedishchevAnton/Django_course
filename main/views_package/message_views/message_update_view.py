@@ -12,4 +12,4 @@ class MessageUpdateView(generic.UpdateView):
 
     def get_success_url(self):
         pk = self.kwargs['pk']
-        return reverse_lazy('main:customer_update', kwargs={'pk': pk})
+        return reverse_lazy('main:message_update', kwargs={'pk': pk})

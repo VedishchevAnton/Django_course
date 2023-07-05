@@ -124,6 +124,18 @@ files = [
 ]
 
 [[package]]
+name = "config"
+version = "0.5.1"
+description = "A hierarchical, easy-to-use, powerful configuration module for Python"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "config-0.5.1-py2.py3-none-any.whl", hash = "sha256:79ffa009ff2663cc8ca29e56bcec031c044609d4bafaa4f884132a413101ce84"},
+    {file = "config-0.5.1.zip", hash = "sha256:2dd4a03aa383d30711d5a3325a1858de225328d61950a85be5b74c100f63016d"},
+]
+
+[[package]]
 name = "contact"
 version = "1.0.5"
 description = "Saves the contact and fetches the name on entering number"
@@ -913,4 +925,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "0b02ddf03c8e90f8a2400669c1f5af11f0c21decbd7c897689a73ae28487afcb"
+content-hash = "e7525b5ba6c3fc90a1d4c751f39155385e134869c7cc40a8e524f393e91e1888"

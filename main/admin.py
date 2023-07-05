@@ -14,7 +14,7 @@ class CustomerAdmin(admin.ModelAdmin):
 
 @admin.register(Newsletter)
 class NewsletterAdmin(admin.ModelAdmin):
-    list_display = ('send_time', 'frequency', 'status')
+    list_display = ('subject', 'send_time', 'frequency', 'status')
     list_filter = ('frequency', 'status')
     search_fields = ('customers__first_name', 'customers__last_name', 'customers__email')
     # filter_horizontal = ('customers',)
