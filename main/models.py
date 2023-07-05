@@ -56,7 +56,7 @@ class Message(models.Model):
 
     def __str__(self):
         """Возвращает строковое представление модели."""
-        return f'{self.subject}:\n{self.body}'
+        return f'{self.subject}'
 
     class Meta:
         """Метаданные модели."""

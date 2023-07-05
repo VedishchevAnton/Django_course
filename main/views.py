@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from main.models import Customer, Message, Log
+from main.models import Log
 
 
 def index(request):
@@ -10,7 +10,6 @@ def index(request):
     return render(request, 'main/index.html', context)
 
 
-# Create your views_package here.
 def contact(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -23,16 +22,6 @@ def contact(request):
     }
 
     return render(request, 'main/contact.html', context)
-
-
-def messages(request):
-    messages_list = Message.objects.all()
-    context = {
-        'object_list': messages_list,
-        'title': 'Сообщения'
-    }
-
-    return render(request, 'main/messages/messages_list.html', context)
 
 
 def logs(request):

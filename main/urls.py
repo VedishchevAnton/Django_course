@@ -6,13 +6,20 @@ from main.views_package.customer_views.customer_create_view import CustomerCreat
 from main.views_package.customer_views.customer_delete_view import CustomerDeleteView
 from main.views_package.customer_views.customer_list_view import CustomerListView
 from main.views_package.customer_views.customer_update_view import CustomerUpdateView
+from main.views_package.message_views.message_create_view import MessageCreateView
+from main.views_package.message_views.message_delete_view import MessageDeleteView
+from main.views_package.message_views.message_list_view import MessageListView
+from main.views_package.message_views.message_update_view import MessageUpdateView
 from main.views_package.newsletter_views.newsletter_delete_view import NewsletterDeleteView
 from main.views_package.newsletter_views.newsletter_list_view import NewsletterListView
 from main.views_package.newsletter_views.newsletter_detail_view import NewsletterDetailView
 from main.views_package.newsletter_views.newsletter_create_view import NewsletterCreateView
-from main.views import index, contact, messages, logs
+from main.views import index, contact, logs
 
 app_name = MainConfig.name
+
+
+
 
 urlpatterns = [
     path('', index, name='index'),
@@ -25,6 +32,9 @@ urlpatterns = [
     path('newsletter/create/', NewsletterCreateView.as_view(), name='newsletter_create'),
     path('newsletter/<int:pk>/', NewsletterDetailView.as_view(), name='newsletter_item'),
     path('newsletter/delete/<int:pk>/', NewsletterDeleteView.as_view(), name='newsletter_delete'),
-    path('messages/', messages, name='messages'),
+    path('messages/', MessageListView.as_view(), name='messages'),
+    path('messages/create/', MessageCreateView.as_view(), name='message_create'),
+    path('messages/update/<int:pk>/', MessageUpdateView.as_view(), name='message_update'),
+    path('messages/delete/<int:pk>/', MessageDeleteView.as_view(), name='message_delete'),
     path('logs/', logs, name='logs'),
 ]
