@@ -5,7 +5,14 @@
         <li><a href="{% url 'main:customers' %}" class="text-white">Клиенты</a></li>
         <li><a href="{% url 'main:logs' %}" class="text-white">Логи</a></li>
         <li><a href="{% url 'main:newsletters' %}" class="text-white">Рассылки</a></li>
-{#        <li><a href="{% url 'main:messages' %}" class="text-white">Сообщения</a></li>#}
+        <li><a href="{% url 'main:messages' %}" class="text-white">Сообщения</a></li>
         <li><a href="{% url 'main:contact' %}" class="text-white">Контакты</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'users:logout' %}" class="text-white">Выйти</a></li>
+            <li><a href="{% url 'users:profile' %}" class="text-white">Профиль</a></li>
+        {% else %}
+            <li><a href="{% url 'users:login' %}" class="text-white">Войти</a></li>
+            <li><a href="{% url 'users:register' %}" class="text-white">Регистрация</a></li>
+        {% endif %}
     </ul>
 </div>

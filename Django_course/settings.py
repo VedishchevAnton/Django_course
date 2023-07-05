@@ -40,6 +40,7 @@ STANDARD_APPS = [
 USER_APPS = [
     'django_crontab',  # критично чтобы приложения загрузились до моих
     'main',
+    'users',
 ]
 
 INSTALLED_APPS = STANDARD_APPS + USER_APPS
@@ -82,7 +83,7 @@ WSGI_APPLICATION = 'Django_course.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Django_course',  # Название БД
+        'NAME': 'django_course_db',  # Название БД
         'USER': 'postgres',  # Пользователь для подключения
         'PASSWORD': 231287,  # Пароль для этого пользователя
         'HOST': '127.0.0.1',  # Адрес, на котором развернут сервер БД
@@ -135,3 +136,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+AUTH_USER_MODEL = 'users.User'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+SITE_ID = 1
+SITE_ADRES = "127.0.0.1:8000"
+
+# Настройки SMTP-сервера
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'vedanton@mail.ru'
+EMAIL_HOST_PASSWORD = 'hci6s06uA91awsDkvzm0'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+LOGIN_URL = 'users:login'
