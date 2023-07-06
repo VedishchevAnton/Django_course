@@ -24,3 +24,5 @@ def send_newsletter(message_item: Message):
             status = 'error'
             response = str(e)
         Log.objects.create(message=message_item, status=status, response=response)
+
+# python manage.py crontab add
