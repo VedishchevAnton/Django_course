@@ -25,4 +25,13 @@ def send_newsletter(message_item: Message):
             response = str(e)
         Log.objects.create(message=message_item, status=status, response=response)
 
+
+# run crontab
 # python manage.py crontab add
+
+# show current active jobs of this project:
+# python manage.py crontab show
+
+# removing all defined jobs is straight forward:
+# python manage.py crontab remove
+
