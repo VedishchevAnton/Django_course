@@ -23,12 +23,3 @@ def contact(request):
 
     return render(request, 'main/contact.html', context)
 
-
-def logs(request):
-    logs_list = Log.objects.all()
-    context = {
-        'object_list': logs_list,
-        'title': 'Логи'
-    }
-
-    return render(request, 'main/logs/logs_list.html', context)

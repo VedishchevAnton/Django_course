@@ -93,7 +93,10 @@ class Log(models.Model):
 
     def __str__(self):
         """Возвращает строковое представление модели."""
-        return f"{self.message} - {self.timestamp} - {self.status}"
+        return f"Сообщение: {self.message}\n" \
+               f"Время рассылки: {self.timestamp}\n" \
+               f"Ответ сервера: {self.response}"
+
 
     class Meta:
         """Метаданные модели."""
