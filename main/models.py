@@ -1,12 +1,13 @@
 from django.db import models
 from django.db.models.functions import datetime
 from django.utils import timezone
+from django.core.mail import send_mail
 
 NULLABLE = {'blank': True, 'null': True}
 
 
 class Customer(models.Model):
-    email = models.EmailField(verbose_name='Контактный email')
+    email = models.EmailField(verbose_name='Контактный email', unique=True)
     full_name = models.CharField(max_length=100, verbose_name='ФИО')
     comment = models.TextField(verbose_name='Комментарий')
 
@@ -77,11 +78,16 @@ class Message(models.Model):
 
 class Log(models.Model):
     """Модель Логи рассылки"""
+    # статус попытки
+    STATUS_CHOICES = (
+        ('success', 'Успешно'),
+        ('error', 'Ошибка'),
+    )
     message = models.ForeignKey(Message, on_delete=models.CASCADE,
                                 verbose_name='Сообщение для рассылки')  # внешний ключ на модель Сообщение для рассылки
     timestamp = models.DateTimeField(
         auto_now_add=True, verbose_name='Дата и время последней попытки')  # дата и время последней попытки
-    status = models.CharField(max_length=20, verbose_name='Статус попытки')  # статус попытки
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, verbose_name='Статус попытки')  # статус попытки
     response = models.TextField(
         verbose_name='Ответ почтового сервера, если он был')  # ответ почтового сервера, если он был
 
