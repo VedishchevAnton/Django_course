@@ -5,7 +5,7 @@
         <a href="{% url 'main:customer_create' %}" class="btn btn-secondary m-2">Добавить клиента</a>
     </div>
     {% for object in object_list %}
-        <div class="col-md-5">
+        <div class="col-md-4">
             <div class="card mb-4 box-shadow">
                 <div class="card-body">
                     <p class="card-text">{{ object|title }}</p>

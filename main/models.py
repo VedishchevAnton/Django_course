@@ -1,7 +1,4 @@
 from django.db import models
-from django.db.models.functions import datetime
-from django.utils import timezone
-from django.core.mail import send_mail
 
 NULLABLE = {'blank': True, 'null': True}
 
@@ -37,8 +34,8 @@ class Newsletter(models.Model):
         ('completed', 'Завершена'),
     )
 
-    subject = models.CharField(max_length=50, verbose_name='Тема рассылки', default='Тема рассылки')  # тема рассылки
-    send_time = models.DateTimeField(verbose_name='Время рассылки', default=datetime.datetime.now)
+    subject = models.CharField(max_length=50, verbose_name='Тема рассылки')  # тема рассылки
+    body = models.TextField(verbose_name='Содержание письма')  # тело письма
     # end_time = models.TimeField(verbose_name='Время окончания рассылки')
     frequency = models.CharField(max_length=10, choices=SEND_FREQUENCY_CHOICES,
                                  verbose_name='Периодичность рассылки')  # периодичность рассылки (раз в день, раз в
@@ -62,12 +59,6 @@ class Message(models.Model):
     """Модель Сообщение для рассылки"""
     newsletter = models.ForeignKey(Newsletter, verbose_name='Рассылка',
                                    on_delete=models.CASCADE)  # внешний ключ на модель Рассылка
-    subject = models.CharField(max_length=50, verbose_name='Тема письма')  # тема письма
-    body = models.TextField(verbose_name='Содержание письма')  # тело письма
-
-    def __str__(self):
-        """Возвращает строковое представление модели."""
-        return f'{self.subject}'
 
     class Meta:
         """Метаданные модели."""
@@ -96,7 +87,6 @@ class Log(models.Model):
         return f"Сообщение: {self.message}\n" \
                f"Время рассылки: {self.timestamp}\n" \
                f"Ответ сервера: {self.response}"
-
 
     class Meta:
         """Метаданные модели."""

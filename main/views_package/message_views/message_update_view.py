@@ -1,12 +1,13 @@
 from django.urls import reverse_lazy
 from django.views import generic
 
+from main.forms import MessageForm
 from main.models import Message
 
 
 class MessageUpdateView(generic.UpdateView):
     model = Message
-    fields = ['newsletter', 'subject', 'body']
+    form_class = MessageForm
     template_name = 'main/messages/message_detail.html'
     success_url = reverse_lazy('main:messages')
 

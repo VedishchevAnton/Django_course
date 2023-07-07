@@ -1,12 +1,13 @@
 from django.urls import reverse_lazy
 from django.views import generic
 
+from main.forms import NewsletterForm
 from main.models import Newsletter
 
 
 class NewsletterUpdateView(generic.UpdateView):
     model = Newsletter
-    fields = ['subject', 'send_time', 'frequency', 'status', 'customers']
+    form_class = NewsletterForm
     template_name = 'main/newsletters/newsletter_detail.html'
     success_url = reverse_lazy('main:newsletters')
 
