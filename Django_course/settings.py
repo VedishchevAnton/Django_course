@@ -159,5 +159,6 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 LOGIN_URL = 'users:login'
 
 CRONJOBS = [
-    ('* * * * *', 'main.views_package.message_views.message_create_view.send_newsletter'),  # будет запускаться каждую минуту
+    ('* * * * *', 'main.services.send_newsletter'),  # будет запускаться
+    # каждую минуту
 ]
