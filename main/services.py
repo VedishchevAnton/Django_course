@@ -2,6 +2,7 @@ from django.core.mail import send_mail
 
 from Django_course import settings
 from main.models import Message, Log, Newsletter
+from django.core.cache import cache
 
 
 def daily_send():
@@ -53,6 +54,7 @@ def send_newsletter(message_item: Newsletter):
             response = str(e)
         Log.objects.create(message=message, status=status, response=response)
 
+
 # run crontab
 # python manage.py crontab add
 
@@ -61,3 +63,24 @@ def send_newsletter(message_item: Newsletter):
 
 # removing all defined jobs is straight forward:
 # python manage.py crontab remove
+
+def get_cached_log_data(log):
+    if settings.CACHE_ENABLE:
+        cache_key = f'log_{log.pk}'
+        cached_data = cache.get(cache_key)
+        if cached_data is None:
+            cached_data = {
+                'message': log.message,  # Сообщение для рассылки
+                'timestamp': log.timestamp,  # Дата и время последней попытки
+                'status': log.status,  # Статус попытки
+                'response': log.response,  # Ответ почтового сервера, если он был
+            }
+            cache.set(cache_key, cached_data, 300)  # Кешируем данные на 5 минут
+        return cached_data
+    else:
+        return {
+            'message': log.message,  # Сообщение для рассылки
+            'timestamp': log.timestamp,  # Дата и время последней попытки
+            'status': log.status,  # Статус попытки
+            'response': log.response,  # Ответ почтового сервера, если он был
+        }

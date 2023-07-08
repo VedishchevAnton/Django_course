@@ -7,6 +7,7 @@ from main.views_package.customer_views.customer_create_view import CustomerCreat
 from main.views_package.customer_views.customer_delete_view import CustomerDeleteView
 from main.views_package.customer_views.customer_list_view import CustomerListView
 from main.views_package.customer_views.customer_update_view import CustomerUpdateView
+from main.views_package.log_view.log_detail_view import LogDetailView
 from main.views_package.log_view.log_list_view import LogListView
 from main.views_package.message_views.message_create_view import MessageCreateView
 from main.views_package.message_views.message_delete_view import MessageDeleteView
@@ -36,4 +37,5 @@ urlpatterns = [
     path('messages/update/<int:pk>/', MessageUpdateView.as_view(), name='message_update'),
     path('messages/delete/<int:pk>/', MessageDeleteView.as_view(), name='message_delete'),
     path('logs/', cache_page(60)(LogListView.as_view()), name='logs'),
+    path('log_details/<int:pk>/', LogDetailView.as_view(), name='log_details'),
 ]
