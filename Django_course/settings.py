@@ -41,6 +41,7 @@ USER_APPS = [
     'django_crontab',  # критично чтобы приложения загрузились до моих
     'main',
     'users',
+    'blog',
 ]
 
 INSTALLED_APPS = STANDARD_APPS + USER_APPS
@@ -83,7 +84,7 @@ WSGI_APPLICATION = 'Django_course.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Skychimp_db',  # Название БД
+        'NAME': 'Database_course_6',  # Название БД
         'USER': 'postgres',  # Пользователь для подключения
         'PASSWORD': 231287,  # Пароль для этого пользователя
         'HOST': '127.0.0.1',  # Адрес, на котором развернут сервер БД
@@ -163,3 +164,7 @@ CRONJOBS = [
     ('0 0 * * 0', 'main.services.weekly_send'),  # запускается каждое воскресенье в полночь
     ('0 0 1 * *', 'main.services.monthly_send'),  # запускается в первый день каждого месяца в полночь
 ]
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_TIMEZONE = 'Europe/Moscow'
