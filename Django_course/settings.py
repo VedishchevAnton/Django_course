@@ -41,7 +41,6 @@ USER_APPS = [
     'django_crontab',  # критично чтобы приложения загрузились до моих
     'main',
     'users',
-    'blog',
 ]
 
 INSTALLED_APPS = STANDARD_APPS + USER_APPS
