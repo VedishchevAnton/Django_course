@@ -1,5 +1,6 @@
 # URL-адрес (Uniform Resource Locator) Единый указатель ресурсов в интернете
 from django.urls import path
+from django.views.decorators.cache import cache_page
 
 from main.apps import MainConfig
 from main.views_package.customer_views.customer_create_view import CustomerCreateView
@@ -20,7 +21,7 @@ from main.views import index, contact
 app_name = MainConfig.name
 
 urlpatterns = [
-    path('', index, name='index'),
+    path('', cache_page(5)(index), name='index'),
     path('contact/', contact, name='contact'),
     path('customers/', CustomerListView.as_view(), name='customers'),
     path('customers/create/', CustomerCreateView.as_view(), name='customer_create'),
@@ -34,5 +35,5 @@ urlpatterns = [
     path('messages/create/', MessageCreateView.as_view(), name='message_create'),
     path('messages/update/<int:pk>/', MessageUpdateView.as_view(), name='message_update'),
     path('messages/delete/<int:pk>/', MessageDeleteView.as_view(), name='message_delete'),
-    path('logs/', LogListView.as_view(), name='logs'),
+    path('logs/', cache_page(60)(LogListView.as_view()), name='logs'),
 ]

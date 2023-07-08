@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -22,6 +23,11 @@ class NewsletterCreateView(generic.CreateView):
         message_item = self.object
         send_newsletter(message_item)
         return response
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['newsletters_count'] = Newsletter.objects.count()
+        return context
 
     # Вызываем super().form_valid(form) для сохранения объекта рассылки в базе данных, а затем вызываем
     # send_newsletter() для отправки рассылки всем клиентам, если текущее время находится в диапазоне времени начала
