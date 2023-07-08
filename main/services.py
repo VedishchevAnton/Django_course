@@ -4,6 +4,33 @@ from Django_course import settings
 from main.models import Message, Log, Newsletter
 
 
+def daily_send():
+    for item in Newsletter.objects.filter(frequency='daily'):
+        item.status = 'running'
+        item.save()
+        send_newsletter(item)
+        item.status = 'completed'
+        item.save()
+
+
+def weekly_send():
+    for item in Newsletter.objects.filter(frequency='weekly'):
+        item.status = 'running'
+        item.save()
+        send_newsletter(item)
+        item.status = 'completed'
+        item.save()
+
+
+def monthly_send():
+    for item in Newsletter.objects.filter(frequency='monthly'):
+        item.status = 'running'
+        item.save()
+        send_newsletter(item)
+        item.status = 'completed'
+        item.save()
+
+
 def send_newsletter(message_item: Newsletter):
     # Получаем список email-адресов клиентов, которым нужно отправить рассылку
     customers_emails = message_item.customers.values_list('email', flat=True)  # noqa(отключить проверку)
