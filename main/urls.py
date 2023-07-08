@@ -7,6 +7,7 @@ from main.views_package.customer_views.customer_create_view import CustomerCreat
 from main.views_package.customer_views.customer_delete_view import CustomerDeleteView
 from main.views_package.customer_views.customer_list_view import CustomerListView
 from main.views_package.customer_views.customer_update_view import CustomerUpdateView
+from main.views_package.index_view.index_view import IndexView
 from main.views_package.log_view.log_detail_view import LogDetailView
 from main.views_package.log_view.log_list_view import LogListView
 from main.views_package.message_views.message_create_view import MessageCreateView
@@ -17,12 +18,12 @@ from main.views_package.newsletter_views.newsletter_delete_view import Newslette
 from main.views_package.newsletter_views.newsletter_list_view import NewsletterListView
 from main.views_package.newsletter_views.newsletter_update_view import NewsletterUpdateView
 from main.views_package.newsletter_views.newsletter_create_view import NewsletterCreateView
-from main.views import index, contact
+from main.views import contact
 
 app_name = MainConfig.name
 
 urlpatterns = [
-    path('', cache_page(5)(index), name='index'),
+    path('', cache_page(5)(IndexView.as_view()), name='index'),
     path('contact/', contact, name='contact'),
     path('customers/', CustomerListView.as_view(), name='customers'),
     path('customers/create/', CustomerCreateView.as_view(), name='customer_create'),
