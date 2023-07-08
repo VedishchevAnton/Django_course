@@ -41,6 +41,7 @@ USER_APPS = [
     'django_crontab',  # критично чтобы приложения загрузились до моих
     'main',
     'users',
+    'blog',
 ]
 
 INSTALLED_APPS = STANDARD_APPS + USER_APPS
@@ -83,7 +84,7 @@ WSGI_APPLICATION = 'Django_course.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Database_course_6',  # Название БД
+        'NAME': 'Django_course',  # Название БД
         'USER': 'postgres',  # Пользователь для подключения
         'PASSWORD': 231287,  # Пароль для этого пользователя
         'HOST': '127.0.0.1',  # Адрес, на котором развернут сервер БД
