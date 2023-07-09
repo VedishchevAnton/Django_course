@@ -1,21 +1,24 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-    <div class="row flex-wrap">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-body">
-                    <form method="post">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <input type="submit" class="btn btn-secondary m-2"
-                               value="{% if object %}Изменить{% else %}Добавить{% endif %}">
-                    </form>
-                </div>
-                <div class="card-footer">
-                    <a href="{% url 'main:newsletters' %}" class="btn btn-secondary m-2"><< Назад</a>
-                </div>
-            </div>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+        <h1 style="font-size: 24px; margin-bottom: 10px;">Детализация рассылки</h1>
+        <div><strong>Тема рассылки:</strong> {{ object.subject }}</div>
+        <div><strong>Содержание письма:</strong> {{ object.body }}</div>
+        <div><strong>Периодичность рассылки:</strong> {{ object.frequency }}</div>
+        <div><strong>Статус рассылки:</strong> {{ object.status }}</div>
+        <div><strong>Клиенты:</strong>
+            {% if object.customers.all %}
+                {% for customer in object.customers.all %}
+                    {{ customer.email }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            {% else %}
+                Нет клиентов
+            {% endif %}
+        </div>
+
+        <div class="col-12">
+            <a href="{% url 'main:newsletters' %}" class="btn btn-secondary m-2"><< Назад</a>
         </div>
     </div>
 {% endblock %}

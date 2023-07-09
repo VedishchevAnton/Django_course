@@ -8,7 +8,7 @@ from main.models import Newsletter
 class NewsletterUpdateView(generic.UpdateView):
     model = Newsletter
     form_class = NewsletterForm
-    template_name = 'main/newsletters/newsletter_detail.html'
+    template_name = 'main/newsletters/newsletter_update.html'
     success_url = reverse_lazy('main:newsletters')
 
     def get_success_url(self):

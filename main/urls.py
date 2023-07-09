@@ -15,6 +15,7 @@ from main.views_package.message_views.message_delete_view import MessageDeleteVi
 from main.views_package.message_views.message_list_view import MessageListView
 from main.views_package.message_views.message_update_view import MessageUpdateView
 from main.views_package.newsletter_views.newsletter_delete_view import NewsletterDeleteView
+from main.views_package.newsletter_views.newsletter_detail_view import NewsletterDetailView
 from main.views_package.newsletter_views.newsletter_list_view import NewsletterListView
 from main.views_package.newsletter_views.newsletter_update_view import NewsletterUpdateView
 from main.views_package.newsletter_views.newsletter_create_view import NewsletterCreateView
@@ -31,7 +32,8 @@ urlpatterns = [
     path('customers/delete/<int:pk>/', CustomerDeleteView.as_view(), name='customer_delete'),
     path('newsletters/', NewsletterListView.as_view(), name='newsletters'),
     path('newsletter/create/', NewsletterCreateView.as_view(), name='newsletter_create'),
-    path('newsletter/<int:pk>/', NewsletterUpdateView.as_view(), name='newsletter_update'),
+    path('newsletter/newsletter_details/<int:pk>/', NewsletterDetailView.as_view(), name='newsletter_detail'),
+    path('newsletter/update/<int:pk>/', NewsletterUpdateView.as_view(), name='newsletter_update'),
     path('newsletter/delete/<int:pk>/', NewsletterDeleteView.as_view(), name='newsletter_delete'),
     path('messages/', MessageListView.as_view(), name='messages'),
     path('messages/create/', MessageCreateView.as_view(), name='message_create'),

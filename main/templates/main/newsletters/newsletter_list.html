@@ -5,7 +5,7 @@
         <a href="{% url 'main:newsletter_create' %}" class="btn btn-secondary m-2">Добавить рассылку</a>
     </div>
     {% for object in object_list %}
-        <div class="col-md-5">
+        <div class="col-md-6">
             <div class="card mb-4 box-shadow">
                 <div class="card-body">
                     <p class="card-text">Название рассылки: {{ object|title }}</p>
@@ -14,10 +14,10 @@
                             <a href="{% url 'main:newsletter_update' object.pk %}"
                                class="btn btn-sm btn-outline-secondary">Редактировать рассылку</a>
                         </div>
-                        {#                        <div class="btn-group">#}
-                        {#                            <a href="{% url 'main:send_newsletter' %}"#}
-                        {#                               class="btn btn-sm btn-outline-secondary">Отправить рассылку</a>#}
-                        {#                        </div>#}
+                        <div class="btn-group">
+                            <a href="{% url 'main:newsletter_detail' object.pk %}"
+                               class="btn btn-sm btn-outline-secondary">Детализация рассылки</a>
+                        </div>
                         <div class="btn-group">
                             <a href="{% url 'main:newsletter_delete' object.pk %}"
                                class="btn btn-sm btn-outline-secondary">Удалить рассылку</a>
