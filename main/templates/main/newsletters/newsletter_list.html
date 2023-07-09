@@ -2,9 +2,9 @@
 
 {% block content %}
     <div class="col-12">
-{#        {% if user.is_authenticated and not request.user.is_staff %}#}
-        <a href="{% url 'main:newsletter_create' %}" class="btn btn-secondary m-2">Добавить рассылку</a>
-{#        {% endif %}#}
+        {% if user.is_active and not request.user.is_staff or user.is_superuser %}
+            <a href="{% url 'main:newsletter_create' %}" class="btn btn-secondary m-2">Добавить рассылку</a>
+        {% endif %}
     </div>
     {% for object in object_list %}
         <div class="col-md-6">
@@ -13,17 +13,19 @@
                     <p class="card-text">Название рассылки: {{ object|title }}</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <a href="{% url 'main:newsletter_update' object.pk %}"
-                               class="btn btn-sm btn-outline-secondary">Редактировать рассылку</a>
-                        </div>
-                        <div class="btn-group">
-                            <a href="{% url 'main:newsletter_detail' object.pk %}"
-                               class="btn btn-sm btn-outline-secondary">Детализация рассылки</a>
-                        </div>
-                        <div class="btn-group">
-                            <a href="{% url 'main:newsletter_delete' object.pk %}"
-                               class="btn btn-sm btn-outline-secondary">Удалить рассылку</a>
-                        </div>
+                            {% if user.is_active and not request.user.is_staff or user.is_superuser %}
+                                <a href="{% url 'main:newsletter_update' object.pk %}"
+                                   class="btn btn-sm btn-outline-secondary">Редактировать рассылку</a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="{% url 'main:newsletter_detail' object.pk %}"
+                                       class="btn btn-sm btn-outline-secondary">Детализация рассылки</a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="{% url 'main:newsletter_delete' object.pk %}"
+                                       class="btn btn-sm btn-outline-secondary">Удалить рассылку</a>
+                                </div>
+                            {% endif %}
                     </div>
                 </div>
             </div>

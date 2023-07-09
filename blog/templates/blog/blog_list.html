@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="col-12">
-        {% if user.is_authenticated %}
+        {% if user.is_active and  user.is_superuser %}
             <a href="{% url 'blog:blog_create' %}" class="btn btn-secondary m-2">Добавить публикацию</a>
         {% endif %}
     </div>
