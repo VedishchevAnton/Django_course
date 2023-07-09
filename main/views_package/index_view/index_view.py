@@ -7,7 +7,6 @@ from main.models import Newsletter, Customer
 
 
 class IndexView(generic.ListView):
-
     def get(self, request, *args, **kwargs):
         newsletters_count = Newsletter.objects.count()  # получаем информацию об общем количестве рассылок
         newsletters_count_run = Newsletter.objects.filter(
@@ -22,6 +21,5 @@ class IndexView(generic.ListView):
             'newsletters_count_run': newsletters_count_run,
             'unique_customers_count': unique_customers_count,
             'blog_posts': blog_posts
-
         }
         return render(request, 'main/index.html', context)

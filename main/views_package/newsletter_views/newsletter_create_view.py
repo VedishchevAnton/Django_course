@@ -13,14 +13,17 @@ class NewsletterCreateView(generic.CreateView):
     template_name = 'main/newsletters/newsletter_form.html'
     success_url = reverse_lazy('main:newsletters')
 
-    # Чтобы вызвать метод отправки рассылке клиентам после создания новой рассылки, переопределить метод form_valid()
     def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
+        form.instance.status = 'running'
+        response = super().form_valid(form)
+        send_newsletter(self.object)
+        return response
 
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
         message_item = self.object
+        message_item.status = 'running'
+        message_item.save()
         send_newsletter(message_item)
         return response
 
@@ -28,7 +31,3 @@ class NewsletterCreateView(generic.CreateView):
         context = super().get_context_data(**kwargs)
         context['newsletters_count'] = Newsletter.objects.count()
         return context
-
-    # Вызываем super().form_valid(form) для сохранения объекта рассылки в базе данных, а затем вызываем
-    # send_newsletter() для отправки рассылки всем клиентам, если текущее время находится в диапазоне времени начала
-    # и времени окончания рассылки.
