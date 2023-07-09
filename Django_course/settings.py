@@ -157,8 +157,6 @@ EMAIL_USE_SSL = True
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-LOGIN_URL = 'users:login'
-
 CRONJOBS = [
     ('5 * * * *', 'main.services.daily_send'),  # запускается каждые 5 минут
     ('0 0 * * 0', 'main.services.weekly_send'),  # запускается каждое воскресенье в полночь
@@ -169,6 +167,7 @@ CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_TIMEZONE = 'Europe/Moscow'
 
+LOGIN_URL = '/users/'
 
 CACHE_ENABLE = os.getenv(
     'CACHE_ENABLE') == 'True'  # если True значит работаем на продакшн, если False значит локально и кешировать

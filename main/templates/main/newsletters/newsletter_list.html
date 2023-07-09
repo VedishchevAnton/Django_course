@@ -2,7 +2,9 @@
 
 {% block content %}
     <div class="col-12">
+{#        {% if user.is_authenticated and not request.user.is_staff %}#}
         <a href="{% url 'main:newsletter_create' %}" class="btn btn-secondary m-2">Добавить рассылку</a>
+{#        {% endif %}#}
     </div>
     {% for object in object_list %}
         <div class="col-md-6">
