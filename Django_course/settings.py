@@ -9,12 +9,11 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -27,10 +26,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
-INSTALLED_APPS = [
+STANDARD_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +36,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+USER_APPS = [
+    'django_crontab',  # критично чтобы приложения загрузились до моих
+    'main',
+    'users',
+    'blog',
+]
+
+INSTALLED_APPS = STANDARD_APPS + USER_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,7 +61,7 @@ ROOT_URLCONF = 'Django_course.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [BASE_DIR / 'main/templates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -70,17 +77,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Django_course.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+# psql --host=localhost --dbname=Django_course --username=postgres принудительных вход через сокет
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': 231287,  # Пароль для этого пользователя
+        'HOST': '127.0.0.1',  # Адрес, на котором развернут сервер БД
+        'PORT': 5432,  # Порт, на котором работает сервер БД
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -100,11 +110,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
@@ -112,13 +121,62 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = (
+    BASE_DIR / 'static/',
+)
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+AUTH_USER_MODEL = 'users.User'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+SITE_ID = 1
+SITE_ADRES = "127.0.0.1:8000"
+
+# Настройки SMTP-сервера
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'vedanton@mail.ru'
+EMAIL_HOST_PASSWORD = 'hci6s06uA91awsDkvzm0'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CRONJOBS = [
+    ('5 * * * *', 'main.services.daily_send'),  # запускается каждые 5 минут
+    ('0 0 * * 0', 'main.services.weekly_send'),  # запускается каждое воскресенье в полночь
+    ('0 0 1 * *', 'main.services.monthly_send'),  # запускается в первый день каждого месяца в полночь
+]
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_TIMEZONE = 'Europe/Moscow'
+
+LOGIN_URL = '/users/'
+
+CACHE_ENABLE = os.getenv(
+    'CACHE_ENABLE') == 'True'  # если True значит работаем на продакшн, если False значит локально и кешировать
+# ничего не нужно
+
+if CACHE_ENABLE:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": os.getenv('CACHES_LOCATION'),
+        }
+    }

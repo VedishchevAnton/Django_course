@@ -1,5 +1,5 @@
 """
-ASGI config for Django_course project.
+ASGI main for Django_course project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
